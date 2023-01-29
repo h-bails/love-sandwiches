@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -22,7 +21,7 @@ def get_sales_data():
         print('Data should be six numbers, separated by commas.')
         print(f'Example: 12, 34, 22, 60, 23, 40.\n')
 
-        data_str = input('Enter your data here: ')
+        data_str = input(f'Enter your data here:\n')
        
         sales_data = data_str.split(",")
         validate_data(sales_data)
