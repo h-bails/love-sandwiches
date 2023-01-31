@@ -80,8 +80,7 @@ def get_last_5_entries_sales():
     Returns the data as a list of lists.
     """
     sales = SHEET.worksheet("sales")
-    # column = sales.col_values(3)
-    # print(column)
+    column = sales.col_values(3)
 
     columns = [ ]
     for ind in range(1,7):
@@ -105,12 +104,16 @@ def calculate_stock_data(data):
 
     return new_stock_data
 
-# def get_stock_values(data):
-#     """
-#     Prints a dictonary containing recommended stock values for next market
-#     """
-#     print(data)
-
+def get_stock_values(data):
+    """
+    Prints a dictionary containing recommended stock values for next market
+    """
+    stock = SHEET.worksheet("stock").get_all_values()
+    headings = stock[0]
+    stock_dict = {}
+    for heading, num in zip(headings, data):
+        stock_dict[heading] = num
+    return stock_dict
 
 def main():
     """
@@ -124,7 +127,8 @@ def main():
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
-    # get_stock_values()
+    stock_values = get_stock_values(stock_data)
+    print(stock_values)
 
 print("Welcome to Love Sandwiches data automation!")
 main()
